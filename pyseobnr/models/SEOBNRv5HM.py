@@ -160,9 +160,6 @@ class SEOBNRv5HM_opt(Model):
         self.da6 = self.settings.get("da6", 0.)
         self.ddSO = self.settings.get("ddSO", 0.)
 
-        if np.abs(self.dTpeak) > 1e-3:
-            raise ValueError(f"dTpeak must be smaller than 1e-3. Got dTpeak = {self.dTpeak}")
-
         # QNM deviations
         self.domega_dict = self.settings.get(
             "domega_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
@@ -500,8 +497,8 @@ class SEOBNRv5HM_opt(Model):
             # ----------------------------------------------------------------------------
             # NOTE: in v5, the t^{22}_{peak} is defined differently relative to the v4
             # Cf. Eqs. (42) and (43) of 2303.18039.
-            # Here we are modifying the callibration parameters Delta t^{22}_{ISCO},
-            # which *different* from the what in pSEOBNRv4HM_PA.
+            # Here we are modifying the calibration parameters Delta t^{22}_{ISCO},
+            # which is *different* from the one in pSEOBNRv4HM_PA.
             # Structure above:
             #
             # t_match = t_peak + ( nrDeltaT * (1 + dTpeak) - extra )
@@ -926,11 +923,8 @@ class SEOBNRv5PHM_opt(Model):
         dc = {}
         # Actual coeffs inside the Hamiltonian
         a6_fit = a6_NS(self.nu) * (1. + self.da6)
-        # dSO_fit = dSO(self.nu, self.ap, self.am)
         dc["a6"] = a6_fit
-        # dc["dSO"] = dSO_fit
-        # TODO: can add a constant ddSO correction also in the precessing case
-        # This has to be propagated through several functions, see the MDN branch
+        dc["ddSO"] = self.ddSO
 
         cfs = CalibCoeffs(dc)
         self.H.calibration_coeffs = cfs
@@ -1182,12 +1176,7 @@ class SEOBNRv5PHM_opt(Model):
             self.t_ISCO = t_ISCO
             self.omega_rISCO = om_rISCO
             
-            # Previous experiment:
-            # self.NR_deltaT = self.NR_deltaT - (t_ISCO - self.NR_deltaT) * self.dTpeak
-            # After AB's and LP's suggestion:
-            # self.NR_deltaT = self.NR_deltaT + self.dTpeak
-            # TODO: discuss again
-
+            # TODO: same choice as aligned-spins
             self.NR_deltaT = self.NR_deltaT * (1. + self.dTpeak)
             t_attach = t_ISCO - self.NR_deltaT
 
