@@ -335,6 +335,7 @@ class GenerateWaveform:
             "tol_PA": 1e-11,
             "rtol_ode": 1e-11,
             "atol_ode": 1e-12,
+            "deltaT_sampling": False,
         }
 
         # fills the provided parameters over the default ones
@@ -532,6 +533,8 @@ class GenerateWaveform:
             settings.update(rtol_ode=self.parameters["rtol_ode"])
         if "atol_ode" in self.parameters:
             settings.update(atol_ode=self.parameters["atol_ode"])
+        if "deltaT_sampling" in self.parameters:
+            settings.update(deltaT_sampling=self.parameters["deltaT_sampling"])
 
         settings.update(f_ref=self.parameters["f_ref"])
         times, h, self._model = generate_modes_opt(
@@ -667,6 +670,8 @@ class GenerateWaveform:
                 settings.update(rtol_ode=self.parameters["rtol_ode"])
             if "atol_ode" in self.parameters:
                 settings.update(atol_ode=self.parameters["atol_ode"])
+            if "deltaT_sampling" in self.parameters:
+                settings.update(deltaT_sampling=self.parameters["deltaT_sampling"])
 
             settings.update(f_ref=self.parameters["f_ref"])
             Mpc_to_meters = lal.PC_SI * 1e6
