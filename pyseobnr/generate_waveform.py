@@ -327,6 +327,14 @@ class GenerateWaveform:
             "postadiabatic": True,
             "postadiabatic_type": "analytic",
             "r_size_input": 12,
+            "dA_dict": {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.},
+            "dw_dict": {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.},
+            "dTpeak_dict": {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.},
+            "domega_dict": {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.},
+            "dtau_dict": {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.},
+            "tol_PA": 1e-11,
+            "rtol_ode": 1e-11,
+            "atol_ode": 1e-12,
         }
 
         # fills the provided parameters over the default ones
@@ -508,6 +516,24 @@ class GenerateWaveform:
         if "lmax_nyquist" in self.parameters:
             settings.update(lmax_nyquist=self.parameters["lmax_nyquist"])
 
+        if "dA_dict" in self.parameters:
+            settings.update(dA_dict=self.parameters["dA_dict"])
+        if "dw_dict" in self.parameters:
+            settings.update(dw_dict=self.parameters["dw_dict"])
+        if "dTpeak_dict" in self.parameters:
+            settings.update(dTpeak_dict=self.parameters["dTpeak_dict"])
+        if "domega_dict" in self.parameters:
+            settings.update(domega_dict=self.parameters["domega_dict"])
+        if "dtau_dict" in self.parameters:
+            settings.update(dtau_dict=self.parameters["dtau_dict"])
+
+        if "tol_PA" in self.parameters:
+            settings.update(tol_PA=self.parameters["tol_PA"])
+        if "rtol_ode" in self.parameters:
+            settings.update(rtol_ode=self.parameters["rtol_ode"])
+        if "atol_ode" in self.parameters:
+            settings.update(atol_ode=self.parameters["atol_ode"])
+
         settings.update(f_ref=self.parameters["f_ref"])
         times, h, self._model = generate_modes_opt(
             q,
@@ -625,6 +651,17 @@ class GenerateWaveform:
 
             if "lmax_nyquist" in self.parameters:
                 settings.update(lmax_nyquist=self.parameters["lmax_nyquist"])
+
+            if "dA_dict" in self.parameters:
+                settings.update(dA_dict=self.parameters["dA_dict"])
+            if "dw_dict" in self.parameters:
+                settings.update(dw_dict=self.parameters["dw_dict"])
+            if "dTpeak_dict" in self.parameters:
+                settings.update(dTpeak_dict=self.parameters["dTpeak_dict"])
+            if "domega_dict" in self.parameters:
+                settings.update(domega_dict=self.parameters["domega_dict"])
+            if "dtau_dict" in self.parameters:
+                settings.update(dtau_dict=self.parameters["dtau_dict"])
 
             settings.update(f_ref=self.parameters["f_ref"])
             Mpc_to_meters = lal.PC_SI * 1e6
