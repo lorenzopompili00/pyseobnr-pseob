@@ -526,7 +526,6 @@ class GenerateWaveform:
             settings.update(domega_dict=self.parameters["domega_dict"])
         if "dtau_dict" in self.parameters:
             settings.update(dtau_dict=self.parameters["dtau_dict"])
-
         if "tol_PA" in self.parameters:
             settings.update(tol_PA=self.parameters["tol_PA"])
         if "rtol_ode" in self.parameters:
@@ -662,6 +661,12 @@ class GenerateWaveform:
                 settings.update(domega_dict=self.parameters["domega_dict"])
             if "dtau_dict" in self.parameters:
                 settings.update(dtau_dict=self.parameters["dtau_dict"])
+            if "tol_PA" in self.parameters:
+                settings.update(tol_PA=self.parameters["tol_PA"])
+            if "rtol_ode" in self.parameters:
+                settings.update(rtol_ode=self.parameters["rtol_ode"])
+            if "atol_ode" in self.parameters:
+                settings.update(atol_ode=self.parameters["atol_ode"])
 
             settings.update(f_ref=self.parameters["f_ref"])
             Mpc_to_meters = lal.PC_SI * 1e6
