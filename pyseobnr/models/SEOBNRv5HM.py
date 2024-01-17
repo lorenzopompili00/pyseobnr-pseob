@@ -506,17 +506,6 @@ class SEOBNRv5HM_opt(Model):
 
             self.NR_deltaT = self.NR_deltaT * (1. + self.dTpeak)
             t_attach = t_ISCO - self.NR_deltaT
-
-            # Previous experiment:
-            # self.NR_deltaT = self.NR_deltaT - (t_ISCO - self.NR_deltaT) * self.dTpeak
-            # t_attach = t_ISCO - self.NR_deltaT
-
-            # After AB's and LP's suggestion
-            # print(self.dTpeak)
-            # self.NR_deltaT = self.NR_deltaT + self.dTpeak
-            # t_attach = t_ISCO - self.NR_deltaT
-            # TODO: discuss again
-
             self.t_attach_predicted = t_attach
 
             # If the fit for NR_deltaT is too negative and overshoots the end of the
@@ -1176,7 +1165,6 @@ class SEOBNRv5PHM_opt(Model):
             self.t_ISCO = t_ISCO
             self.omega_rISCO = om_rISCO
             
-            # TODO: same choice as aligned-spins
             self.NR_deltaT = self.NR_deltaT * (1. + self.dTpeak)
             t_attach = t_ISCO - self.NR_deltaT
 
