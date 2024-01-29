@@ -330,6 +330,8 @@ class GenerateWaveform:
             "dA_dict": {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.},
             "dw_dict": {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.},
             "dTpeak": 0.0,
+            "da6": 0.0,
+            "ddSO": 0.0,
             "domega_dict": {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.},
             "dtau_dict": {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.},
             "tol_PA": 1e-11,
@@ -523,6 +525,10 @@ class GenerateWaveform:
             settings.update(dw_dict=self.parameters["dw_dict"])
         if "dTpeak" in self.parameters:
             settings.update(dTpeak=self.parameters["dTpeak"])
+        if "da6" in self.parameters:
+            settings.update(da6=self.parameters["da6"])
+        if "ddSO" in self.parameters:
+            settings.update(ddSO=self.parameters["ddSO"])
         if "domega_dict" in self.parameters:
             settings.update(domega_dict=self.parameters["domega_dict"])
         if "dtau_dict" in self.parameters:
@@ -660,6 +666,10 @@ class GenerateWaveform:
                 settings.update(dw_dict=self.parameters["dw_dict"])
             if "dTpeak" in self.parameters:
                 settings.update(dTpeak=self.parameters["dTpeak"])
+            if "da6" in self.parameters:
+                settings.update(da6=self.parameters["da6"])
+            if "ddSO" in self.parameters:
+                settings.update(ddSO=self.parameters["ddSO"])
             if "domega_dict" in self.parameters:
                 settings.update(domega_dict=self.parameters["domega_dict"])
             if "dtau_dict" in self.parameters:
