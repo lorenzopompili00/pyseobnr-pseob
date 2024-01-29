@@ -337,10 +337,10 @@ class SEOBNRv5HM_opt(Model):
     def _set_H_coeffs(self):
         dc = {}
         # Actual coeffs inside the Hamiltonian
-        a6_fit = a6_NS(self.nu) * (1. + self.da6)
+        a6_fit = a6_NS(self.nu) + self.da6
         dSO_fit = dSO(self.nu, self.ap, self.am)
         dc["a6"] = a6_fit
-        dc["dSO"] = dSO_fit * (1. + self.ddSO)
+        dc["dSO"] = dSO_fit + self.ddSO
 
         cfs = CalibCoeffs(dc)
         self.H.calibration_coeffs = cfs
@@ -501,10 +501,10 @@ class SEOBNRv5HM_opt(Model):
             # which is *different* from the one in pSEOBNRv4HM_PA.
             # Structure above:
             #
-            # t_match = t_peak + ( nrDeltaT * (1 + dTpeak) - extra )
+            # t_match = t_peak + ( nrDeltaT  + dTpeak - extra )
             # ----------------------------------------------------------------------------
 
-            self.NR_deltaT = self.NR_deltaT * (1. + self.dTpeak)
+            self.NR_deltaT = self.NR_deltaT + self.dTpeak
             t_attach = t_ISCO - self.NR_deltaT
             self.t_attach_predicted = t_attach
 
@@ -911,7 +911,7 @@ class SEOBNRv5PHM_opt(Model):
     def _set_H_coeffs(self):
         dc = {}
         # Actual coeffs inside the Hamiltonian
-        a6_fit = a6_NS(self.nu) * (1. + self.da6)
+        a6_fit = a6_NS(self.nu) + self.da6
         dc["a6"] = a6_fit
         dc["ddSO"] = self.ddSO
 
@@ -1165,7 +1165,7 @@ class SEOBNRv5PHM_opt(Model):
             self.t_ISCO = t_ISCO
             self.omega_rISCO = om_rISCO
             
-            self.NR_deltaT = self.NR_deltaT * (1. + self.dTpeak)
+            self.NR_deltaT = self.NR_deltaT + self.dTpeak
             t_attach = t_ISCO - self.NR_deltaT
 
             self.t_attach_predicted = t_attach
