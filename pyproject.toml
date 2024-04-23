@@ -82,12 +82,6 @@ write_to = "pyseobnr/_version.py"
         'pyarrow'
     ]
 
-    tests = [
-        'pytest',
-        'pytest-sugar',
-        'pandas'
-    ]
-
 [tool.pytest.ini_options]
     minversion = "6.0"
     testpaths = [
