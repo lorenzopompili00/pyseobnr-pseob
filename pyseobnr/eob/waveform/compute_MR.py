@@ -5,7 +5,13 @@ See Eq. (56) and following in [SEOBNRv5HM-notes]_ .
 """
 
 import numpy as np
-from ..fits.EOB_fits import *
+
+from ..fits.EOB_fits import (
+    EOBCalculateRDAmplitudeConstraintedCoefficient1,
+    EOBCalculateRDAmplitudeConstraintedCoefficient2,
+    EOBCalculateRDPhaseConstraintedCoefficient1,
+    compute_QNM,
+)
 from ..utils.utils_precession_opt import compute_omegalm_P_frame
 
 
@@ -24,8 +30,8 @@ def compute_MR_mode_free(
     t_match=0,
     phi_match=0,
     qnm_rotation=0.0,
-    domega=0., 
-    dtau=0.
+    domega=0.0,
+    dtau=0.0,
 ):
     """
     Evaluate the MR ansatze.
@@ -46,7 +52,8 @@ def compute_MR_mode_free(
         fits_dict (dict): dictionary of fit coefficients in the ringdown anzatz
         t_match (float): ringdown time at which the merger-ringdown waveform is started
         phi_match (float): value of the phase at t_match
-        qnm_rotation (float): Factor rotating the QNM mode frequency in the co-precessing frame (Eq. 33 of Hamilton et al.)
+        qnm_rotation (float): Factor rotating the QNM mode frequency in the co-precessing frame
+                            (Eq. 33 of Hamilton et al.)
         domega (float): Fractional deviation of QNM frequency
         dtau (float): Fractional deviation of QNM damping time
 
@@ -71,10 +78,11 @@ def compute_MR_mode_free(
     # For precessing cases this modifies the QNM frequencies in the J-frame
     if dtau <= -1:
         raise ValueError(
-            f'dtau must be larger than -1, otherwise the remnant rings up instead of ringing down. Got dtau = {dtau}'
+            f"dtau must be larger than -1, otherwise the remnant rings up instead of ringing down. "
+            f"Got dtau = {dtau}. "
         )
-    flm0 = np.real(omega_complex)/(2 * np.pi) * (1 + domega)
-    taulm0 = 1/np.imag(omega_complex) * (1 + dtau)
+    flm0 = np.real(omega_complex) / (2 * np.pi) * (1 + domega)
+    taulm0 = 1 / np.imag(omega_complex) * (1 + dtau)
     omega_complex = 2 * np.pi * flm0 + 1j / taulm0
 
     # Compute the co-precessing frame QNM frequencies from the J-frame QNMs

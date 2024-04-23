@@ -149,24 +149,60 @@ class SEOBNRv5HM_opt(Model):
 
         # Plunge-merger deviations
         self.dA_dict = self.settings.get(
-                "dA_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
+            "dA_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
         self.dw_dict = self.settings.get(
-                "dw_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
-        self.dTpeak = self.settings.get("dTpeak", 0.)
+            "dw_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
+        self.dTpeak = self.settings.get("dTpeak", 0.0)
 
         # EOB Hamiltonian deviation
-        self.da6 = self.settings.get("da6", 0.)
-        self.ddSO = self.settings.get("ddSO", 0.)
+        self.da6 = self.settings.get("da6", 0.0)
+        self.ddSO = self.settings.get("ddSO", 0.0)
 
         # QNM deviations
         self.domega_dict = self.settings.get(
-            "domega_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
+            "domega_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
         self.dtau_dict = self.settings.get(
-            "dtau_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
+            "dtau_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
 
         # PA/ODE integration tolerances
         self.tol_PA = self.settings.get("tol_PA", 1e-11)
@@ -292,18 +328,54 @@ class SEOBNRv5HM_opt(Model):
         self.rtol_ode = self.settings.get("rtol_ode", 1e-11)
         self.atol_ode = self.settings.get("atol_ode", 1e-12)
         self.dA_dict = self.settings.get(
-                "dA_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
+            "dA_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
         self.dw_dict = self.settings.get(
-                "dw_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
-        self.dTpeak = self.settings.get("dTpeak", 0.)
+            "dw_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
+        self.dTpeak = self.settings.get("dTpeak", 0.0)
         self.domega_dict = self.settings.get(
-            "domega_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
+            "domega_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
         self.dtau_dict = self.settings.get(
-            "dtau_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
+            "dtau_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
 
     def __call__(self):
         # Evaluate the model
@@ -512,10 +584,11 @@ class SEOBNRv5HM_opt(Model):
             # dynamics we attach the MR at the last point
             self.attachment_check = 0.0
             if t_attach > t_fine[-1]:
-                if self.deltaT_sampling == True:
+                if self.deltaT_sampling is True:
                     raise ValueError(
-                        "Error: NR_deltaT too negative, attaching the MR at the last point of the dynamics is not allowed for calibration."
-                        )
+                        "Error: NR_deltaT too negative, attaching the MR at the last point of the dynamics "
+                        "is not allowed for calibration."
+                    )
                 else:
                     self.attachment_check = 1.0
                     t_attach = t_fine[-1]
@@ -741,24 +814,60 @@ class SEOBNRv5PHM_opt(Model):
 
         # Plunge-merger deviations
         self.dA_dict = self.settings.get(
-                "dA_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
+            "dA_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
         self.dw_dict = self.settings.get(
-                "dw_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
-        self.dTpeak = self.settings.get("dTpeak", 0.)
+            "dw_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
+        self.dTpeak = self.settings.get("dTpeak", 0.0)
 
         # EOB Hamiltonian deviation
-        self.da6 = self.settings.get("da6", 0.)
-        self.ddSO = self.settings.get("ddSO", 0.)
+        self.da6 = self.settings.get("da6", 0.0)
+        self.ddSO = self.settings.get("ddSO", 0.0)
 
         # QNM deviations
         self.domega_dict = self.settings.get(
-            "domega_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
+            "domega_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
         self.dtau_dict = self.settings.get(
-            "dtau_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
+            "dtau_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
 
         self.prefixes = compute_newtonian_prefixes(self.m_1, self.m_2)
 
@@ -887,20 +996,56 @@ class SEOBNRv5PHM_opt(Model):
         )
         self.step_back = self.settings.get("step_back", 250.0)
         self.dA_dict = self.settings.get(
-                "dA_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
+            "dA_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
         self.dw_dict = self.settings.get(
-                "dw_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
-        self.dTpeak = self.settings.get("dTpeak", 0.)
-        self.da6 = self.settings.get("da6", 0.)
-        self.ddSO = self.settings.get("ddSO", 0.)
+            "dw_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
+        self.dTpeak = self.settings.get("dTpeak", 0.0)
+        self.da6 = self.settings.get("da6", 0.0)
+        self.ddSO = self.settings.get("ddSO", 0.0)
         self.domega_dict = self.settings.get(
-            "domega_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
+            "domega_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
         self.dtau_dict = self.settings.get(
-            "dtau_dict", {'2,2': 0., '2,1': 0., '3,3': 0., '3,2': 0., '4,4': 0., '4,3': 0., '5,5': 0.}
-            )
+            "dtau_dict",
+            {
+                "2,2": 0.0,
+                "2,1": 0.0,
+                "3,3": 0.0,
+                "3,2": 0.0,
+                "4,4": 0.0,
+                "4,3": 0.0,
+                "5,5": 0.0,
+            },
+        )
 
         self.eob_pars.flux_params.extra_PN_terms = self.settings.get(
             "extra_PN_terms", True
@@ -1164,7 +1309,7 @@ class SEOBNRv5PHM_opt(Model):
             self.NR_deltaT = NR_deltaT_NS(self.nu) + NR_deltaT(self.nu, ap, am)
             self.t_ISCO = t_ISCO
             self.omega_rISCO = om_rISCO
-            
+
             self.NR_deltaT = self.NR_deltaT + self.dTpeak
             t_attach = t_ISCO - self.NR_deltaT
 
@@ -1174,10 +1319,11 @@ class SEOBNRv5PHM_opt(Model):
             # dynamics, we attach the MR at the last point
             self.attachment_check = 0.0
             if t_attach > t_fine[-1]:
-                if self.deltaT_sampling == True:
+                if self.deltaT_sampling is True:
                     raise ValueError(
-                        "Error: NR_deltaT too negative, attaching the MR at the last point of the dynamics is not allowed for calibration."
-                        )
+                        "Error: NR_deltaT too negative, attaching the MR at the last point of the dynamics "
+                        "is not allowed for calibration."
+                    )
                 else:
                     self.attachment_check = 1.0
                     t_attach = t_fine[-1]
