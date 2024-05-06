@@ -24,7 +24,6 @@ from ..fits.EOB_fits import (
 )
 from ..fits.IV_fits import InputValueFits
 from ..fits.MR_fits import MergerRingdownFits
-from ..utils.utils_precession_opt import compute_omegalm_P_frame
 from .compute_MR import compute_MR_mode_free
 from .waveform import compute_factors, unrotate_leading_pn
 
@@ -221,8 +220,10 @@ def compute_IMR_modes(
 
     omega_complex = compute_QNM(2, 2, 0, final_spin, final_mass).conjugate()
 
-    # Here we are only interested in the damping time, no need
-    # to rotate to the co-precessing frame since this the same as in the J-frame
+    # Here we are only interested in the (2,2) mode damping time to estimate
+    # the ringdown length. We don't need to compute the co-precessing frame QNM
+    # frequencies from the J-frame QNMs as in `compute_MR.py` since this rotation
+    # only affects the real part of the frequency and not the damping time.
     damping_time = 1 / np.imag(omega_complex) * (1 + dtau_dict["2,2"])
     # The length of the ringdown rounded to closest M
     ringdown_time = int(30 * damping_time)
