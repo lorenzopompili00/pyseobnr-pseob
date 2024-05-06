@@ -81,9 +81,9 @@ def compute_MR_mode_free(
             f"dtau must be larger than -1, otherwise the remnant rings up instead of ringing down. "
             f"Got dtau = {dtau}. "
         )
-    flm0 = np.real(omega_complex) / (2 * np.pi) * (1 + domega)
+    omegalm0 = np.real(omega_complex) * (1 + domega)
     taulm0 = 1 / np.imag(omega_complex) * (1 + dtau)
-    omega_complex = 2 * np.pi * flm0 + 1j / taulm0
+    omega_complex = omegalm0 + 1j / taulm0
 
     # Compute the co-precessing frame QNM frequencies from the J-frame QNMs
     omega_complex = compute_omegalm_P_frame(omega_complex, m, qnm_rotation)

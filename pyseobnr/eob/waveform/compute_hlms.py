@@ -221,8 +221,8 @@ def compute_IMR_modes(
 
     omega_complex = compute_QNM(2, 2, 0, final_spin, final_mass).conjugate()
 
-    # For non-precessing system this does not make any difference
-    omega_complex = compute_omegalm_P_frame(omega_complex, 2, qnm_rotation)
+    # Here we are only interested in the damping time, no need
+    # to rotate to the co-precessing frame since this the same as in the J-frame
     damping_time = 1 / np.imag(omega_complex) * (1 + dtau_dict["2,2"])
     # The length of the ringdown rounded to closest M
     ringdown_time = int(30 * damping_time)
