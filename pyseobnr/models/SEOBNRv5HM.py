@@ -932,6 +932,9 @@ class SEOBNRv5PHM_opt(Model):
         # This does not allow attaching the merger-ringdown at the last point of the dynamics.
         self.deltaT_sampling = self.settings.get("deltaT_sampling", False)
 
+        # Whether one is including QNM deviations in the precession rate computation
+        self.omega_prec_deviation = self.settings.get("omega_prec_deviation", False)
+
     def _default_settings(self):
         settings = dict(
             M=50.0,  # Total mass in solar masses
@@ -1498,10 +1501,15 @@ class SEOBNRv5PHM_opt(Model):
             sigmaQNM220 = compute_QNM(2, 2, 0, final_spin, final_mass).conjugate()
             sigmaQNM210 = compute_QNM(2, 1, 0, final_spin, final_mass).conjugate()
 
-            # We include fractional deviations to the J-frame QNM frequencies
-            # also in the precession rate computation (Eq. 13 in arXiv:2301.06558)
-            omegaQNM220 = sigmaQNM220.real * (1 + self.domega_dict["2,2"])
-            omegaQNM210 = sigmaQNM210.real * (1 + self.domega_dict["2,1"])
+            if self.omega_prec_deviation == True:
+                # We include fractional deviations to the J-frame QNM frequencies
+                # also in the precession rate computation (Eq. 13 in arXiv:2301.06558)
+                omegaQNM220 = sigmaQNM220.real * (1 + self.domega_dict["2,2"])
+                omegaQNM210 = sigmaQNM210.real * (1 + self.domega_dict["2,1"])
+            else:
+                omegaQNM220 = sigmaQNM220.real
+                omegaQNM210 = sigmaQNM210.real
+
             precRate = omegaQNM220 - omegaQNM210
 
             # Multiply by the sign of the final spin for retrograde cases
