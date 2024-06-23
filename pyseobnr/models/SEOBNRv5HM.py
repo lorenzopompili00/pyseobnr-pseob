@@ -933,7 +933,7 @@ class SEOBNRv5PHM_opt(Model):
         self.deltaT_sampling = self.settings.get("deltaT_sampling", False)
 
         # Whether one is including QNM deviations in the precession rate computation
-        self.omega_prec_deviation = self.settings.get("omega_prec_deviation", False)
+        self.omega_prec_deviation = self.settings.get("omega_prec_deviation", True)
 
     def _default_settings(self):
         settings = dict(
@@ -1482,7 +1482,7 @@ class SEOBNRv5PHM_opt(Model):
                 euler_angles_derivative_attach,
                 # not using the flip from this function, see
                 # https://git.ligo.org/waveforms/software/pyseobnr/-/merge_requests/70
-                _,
+                flip,
             ) = inspiral_merger_quaternion_angles(
                 dynamics[:, 0],
                 dynamics[:, 6],
@@ -1513,7 +1513,7 @@ class SEOBNRv5PHM_opt(Model):
             precRate = omegaQNM220 - omegaQNM210
 
             # Multiply by the sign of the final spin for retrograde cases
-            precRate *= sign_final_spin
+            precRate *= flip
 
             qnm_rotation = (1.0 - abs(cosbetaJ2P_attach)) * precRate
 
