@@ -1482,7 +1482,7 @@ class SEOBNRv5PHM_opt(Model):
                 euler_angles_derivative_attach,
                 # not using the flip from this function, see
                 # https://git.ligo.org/waveforms/software/pyseobnr/-/merge_requests/70
-                flip,
+                _,
             ) = inspiral_merger_quaternion_angles(
                 dynamics[:, 0],
                 dynamics[:, 6],
@@ -1513,7 +1513,7 @@ class SEOBNRv5PHM_opt(Model):
             precRate = omegaQNM220 - omegaQNM210
 
             # Multiply by the sign of the final spin for retrograde cases
-            precRate *= flip
+            precRate *= sign_final_spin
 
             qnm_rotation = (1.0 - abs(cosbetaJ2P_attach)) * precRate
 
