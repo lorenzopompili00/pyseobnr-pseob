@@ -575,7 +575,9 @@ class GenerateWaveform:
         if "deltaT_sampling" in self.parameters:
             settings.update(deltaT_sampling=self.parameters["deltaT_sampling"])
         if "omega_prec_deviation" in self.parameters:
-            settings.update(omega_prec_deviation=self.parameters["omega_prec_deviation"])
+            settings.update(
+                omega_prec_deviation=self.parameters["omega_prec_deviation"]
+            )
 
         settings.update(f_ref=self.parameters["f_ref"])
         times, h, self._model = generate_modes_opt(
@@ -718,7 +720,9 @@ class GenerateWaveform:
             if "deltaT_sampling" in self.parameters:
                 settings.update(deltaT_sampling=self.parameters["deltaT_sampling"])
             if "omega_prec_deviation" in self.parameters:
-                settings.update(omega_prec_deviation=self.parameters["omega_prec_deviation"])
+                settings.update(
+                    omega_prec_deviation=self.parameters["omega_prec_deviation"]
+                )
 
             settings.update(f_ref=self.parameters["f_ref"])
             Mpc_to_meters = lal.PC_SI * 1e6
