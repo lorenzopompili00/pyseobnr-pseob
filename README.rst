@@ -8,6 +8,16 @@ effective-one-body (EOB) approach.
 
 For installation instructions, documentation, examples and more, visit the documentation `here <https://waveforms.docs.ligo.org/software/pyseobnr/>`__.
 
+
+Notice
+============
+The code for using the pSEOBNRv5PHM model has now been merged in the public pySEOBNR `repository <https://git.ligo.org/waveforms/software/pyseobnr/>`__.
+We recommend using the version from the official repository to ensure you are working with the latest updates and bug fixes.
+
+This repository is no longer actively maintained.
+
+Publications using the pSEOBNRv5PHM model should cite the correspondong paper: Lorenzo Pompili, Elisa Maggio, Hector O. Silva, Alessandra Buonanno, "A parametrized spin-precessing inspiral-merger-ringdown waveform model for tests of general relativity", https://inspirehep.net/literature/2911709
+
 Installation
 ============
 
